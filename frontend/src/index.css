@@ -100,6 +100,19 @@ h1, h2, h3, h4, h5 {
 .card { background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; transition: var(--transition); border: 1px solid var(--border-color); }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 
+/* Package Card */
+.pkg-card { border-radius: 24px; overflow: hidden; background: var(--bg-card); box-shadow: var(--shadow); border: 1px solid var(--border-color); transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); position: relative; display: flex; flex-direction: column; height: 100%; }
+.pkg-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-lg); }
+.pkg-img-container { position: relative; height: 260px; overflow: hidden; flex-shrink: 0; }
+.pkg-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1); }
+.pkg-card:hover .pkg-img { transform: scale(1.1); }
+.wishlist-btn { position: absolute; top: 16px; right: 16px; z-index: 10; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; color: white; padding: 0; }
+.wishlist-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.1); }
+.wishlist-btn.active { color: #ff4757; background: white; border-color: white; }
+.pkg-card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+.pkg-card-price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 16px; }
+
+
 /* Badges */
 .badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; backdrop-filter: blur(4px); }
 .badge-active, .badge-confirmed { background: rgba(16,185,129,0.15); color: var(--success); }
@@ -191,11 +204,21 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   .btn { 
     padding: 10px 20px; 
     font-size: 14px; 
-    width: 100%; 
+  }
+  
+  .btn-block {
+    width: 100%;
     justify-content: center;
   }
   
-  .btn-sm { width: auto; }
+  .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+  /* Package Card Mobile Fixes */
+  .pkg-card { border-radius: 16px; }
+  .pkg-img-container { height: 200px; }
+  .pkg-card-body { padding: 16px; }
+  .wishlist-btn { width: 36px; height: 36px; top: 12px; right: 12px; }
+  .pkg-card-price-row { padding-top: 12px; }
 
   /* Grid Fixes */
   .grid-2, .grid-3, .grid-4 {

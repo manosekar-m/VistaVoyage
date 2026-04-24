@@ -73,7 +73,7 @@ export default function HomePage() {
           {loading ? (
             <div style={{ textAlign: 'center', padding: 60 }}><div className="spinner"/></div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: 24 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: 24 }}>
               {packages.map(pkg => <PackageCard key={pkg._id} pkg={pkg}/>)}
             </div>
           )}
