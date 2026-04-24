@@ -40,8 +40,8 @@ export default function Footer() {
           <div>
             <h4 style={{ color: 'var(--accent)', fontFamily: 'DM Sans', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 20 }}>Contact Info</h4>
             {[
-              [MapPin, '12 Travel Tower, MG Road, Bengaluru - 560001'],
-              [Phone,  '+91 98765 43210'],
+              [MapPin, 'VIT-AP university,Amaravati - 522237, Andhra Pradesh'],
+              [Phone,  '+91 7448432423'],
               [Mail,   'hello@vistavoyage.in'],
             ].map(([Icon, text], i) => (
               <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 14, fontSize: 14 }}>

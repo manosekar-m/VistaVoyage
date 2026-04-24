@@ -43,7 +43,7 @@ export default function ContactPage() {
           {[
             [MapPin, 'Address', 'VIT-AP university\nAmaravati - 522237, Andhra Pradesh'],
             [Phone,  'Phone',   '+91 7448432423\nMon - Sat, 9am - 7pm'],
-            [Mail,   'Email',   'hello@vistavoyage.in\nsupport@vistavoyage.in'],
+            [Mail,   'Email',   'hello@vistavoyage.in'],
           ].map(([Icon, label, val]) => (
             <div key={label} style={{ display: 'flex', gap: 16, marginBottom: 28 }}>
               <div style={{ width: 48, height: 48, borderRadius: 14, background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
