@@ -176,9 +176,9 @@ export default function BookingPage() {
         })}
       </div>
 
-      <div className="container" style={{ padding: '0 16px', maxWidth: 860 }}>
-        {/* ─── STEP 1: Trip Details ─── */}
-        {step === 1 && (
+
+      {/* ─── STEP 1: Trip Details ─── */}
+      {step === 1 && (
           <div style={{ background: 'var(--bg-card)', borderRadius: 24, padding: '32px 24px', boxShadow: 'var(--shadow)', border: '1px solid var(--border-color)' }}>
             <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.8rem', color: 'var(--text-main)', fontWeight: 700, marginBottom: 24 }}>Your Trip Details</h2>
 
