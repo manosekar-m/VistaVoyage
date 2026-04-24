@@ -1,0 +1,17 @@
+.pkg-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 16px rgba(26,58,74,0.08); transition: all 0.3s ease; }
+.pkg-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(26,58,74,0.15); }
+.pkg-card__img { position: relative; height: 210px; overflow: hidden; }
+.pkg-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.pkg-card:hover .pkg-card__img img { transform: scale(1.06); }
+.pkg-card__price {
+  position: absolute; bottom: 12px; left: 12px;
+  background: var(--primary); color: var(--accent);
+  padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 15px;
+}
+.pkg-card__body { padding: 18px 20px 20px; }
+.pkg-card__meta { display: flex; gap: 14px; margin-bottom: 8px; }
+.pkg-card__meta span { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--gray-600); }
+.pkg-card__body h3 { font-size: 1.2rem; color: var(--primary); margin-bottom: 8px; line-height: 1.3; }
+.pkg-card__body p { font-size: 13.5px; color: var(--gray-600); line-height: 1.6; margin-bottom: 14px; }
+.pkg-card__footer { display: flex; align-items: center; justify-content: space-between; }
+.pkg-card__stars { display: flex; gap: 2px; }

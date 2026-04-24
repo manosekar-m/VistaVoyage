@@ -1,0 +1,24 @@
+.auth-page { display: flex; min-height: 100vh; }
+.auth-page__left {
+  flex: 1; background-image: url("https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=900");
+  background-size: cover; background-position: center;
+  position: relative; display: flex; align-items: flex-end; padding: 48px;
+}
+.auth-page__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,58,74,0.88) 30%, rgba(26,58,74,0.3)); }
+.auth-page__left-content { position: relative; z-index: 1; color: white; max-width: 420px; }
+.auth-logo { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; font-family: "Cormorant Garamond", serif; font-size: 1.5rem; margin-bottom: 48px; display: inline-flex; }
+.auth-logo strong { color: var(--accent); }
+.auth-page__left-content h2 { font-size: 2.4rem; margin-bottom: 16px; line-height: 1.2; }
+.auth-page__left-content p { font-size: 16px; opacity: 0.8; line-height: 1.7; }
+.auth-page__right { width: 480px; display: flex; align-items: center; justify-content: center; padding: 40px; background: var(--sand); }
+.auth-card { width: 100%; max-width: 400px; }
+.auth-card h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 8px; }
+.auth-subtitle { color: var(--gray-600); margin-bottom: 28px; }
+.auth-error { background: #fee2e2; color: #991b1b; padding: 12px 16px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; }
+.auth-pw-wrap { position: relative; }
+.auth-pw-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--gray-400); }
+.auth-switch { text-align: center; font-size: 14px; color: var(--gray-600); margin-top: 20px; }
+.auth-switch a { color: var(--primary); font-weight: 600; text-decoration: none; }
+.auth-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: var(--gray-400); font-size: 13px; }
+.auth-divider::before, .auth-divider::after { content:""; flex:1; height:1px; background: var(--gray-200); }
+@media (max-width: 768px) { .auth-page__left { display: none; } .auth-page__right { width: 100%; } }

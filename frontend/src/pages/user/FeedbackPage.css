@@ -1,0 +1,12 @@
+.feedback-page { min-height: 100vh; padding-bottom: 80px; }
+.feedback-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.feedback-form-card { background: white; border-radius: 20px; padding: 28px; box-shadow: var(--shadow); height: fit-content; }
+.feedback-form-card h3 { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; color: var(--primary); margin-bottom: 20px; }
+.feedback-item { background: white; border-radius: 14px; padding: 20px; box-shadow: var(--shadow); }
+.feedback-item__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.feedback-item__header h4 { color: var(--primary); font-size: 1rem; }
+.feedback-item__msg { color: var(--gray-600); font-size: 14px; line-height: 1.6; margin-bottom: 8px; }
+.feedback-item__date { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--gray-400); }
+.feedback-item__reply { background: #eff6ff; border-left: 3px solid var(--primary); padding: 14px; border-radius: 0 8px 8px 0; margin-top: 12px; }
+.feedback-item__reply p { font-size: 14px; color: var(--gray-700); line-height: 1.6; }
+@media (max-width: 768px) { .feedback-grid { grid-template-columns: 1fr; } }

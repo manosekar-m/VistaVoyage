@@ -1,0 +1,8 @@
+.admin-login { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, #0f2535 100%); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.admin-login__card { background: white; border-radius: 24px; padding: 48px 40px; width: 100%; max-width: 420px; text-align: center; }
+.admin-login__logo { display: inline-flex; align-items: center; gap: 10px; font-family: "Cormorant Garamond",serif; font-size: 1.5rem; color: var(--primary); margin-bottom: 24px; }
+.admin-login__logo strong { color: var(--accent); }
+.admin-login__lock { width: 52px; height: 52px; border-radius: 16px; background: var(--primary); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.admin-login__card h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 6px; }
+.admin-login__card > p { color: var(--gray-600); font-size: 14px; margin-bottom: 28px; }
+.admin-login__card .form-group { text-align: left; }

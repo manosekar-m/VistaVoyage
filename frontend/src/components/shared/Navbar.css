@@ -1,0 +1,74 @@
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  transition: all 0.35s ease;
+  padding: 0;
+}
+.navbar--transparent { background: transparent; }
+.navbar--solid       { background: var(--primary); box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+.navbar__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px; gap: 32px;
+}
+.navbar__logo {
+  display: flex; align-items: center; gap: 10px;
+  color: white; text-decoration: none;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem; letter-spacing: -0.5px;
+}
+.navbar__logo strong { color: var(--accent); }
+.navbar__links {
+  display: flex; list-style: none; gap: 32px; flex: 1; justify-content: center;
+}
+.navbar__links a {
+  color: rgba(255,255,255,0.88); text-decoration: none;
+  font-size: 15px; font-weight: 400; transition: color 0.2s;
+  position: relative;
+}
+.navbar__links a::after {
+  content: ""; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1.5px; background: var(--accent); transition: width 0.25s;
+}
+.navbar__links a:hover { color: white; }
+.navbar__links a:hover::after { width: 100%; }
+.navbar__actions { display: flex; align-items: center; gap: 12px; }
+.navbar__user {
+  display: flex; align-items: center; gap: 8px;
+  color: white; cursor: pointer; position: relative;
+  font-size: 14px; padding: 6px 12px; border-radius: 30px;
+  background: rgba(255,255,255,0.12); transition: background 0.2s;
+}
+.navbar__user:hover { background: rgba(255,255,255,0.2); }
+.navbar__avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent); color: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px;
+}
+.navbar__dropdown {
+  position: absolute; top: calc(100% + 10px); right: 0;
+  background: white; border-radius: 12px; padding: 8px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15); min-width: 150px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.navbar__dropdown a, .navbar__dropdown button {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 8px; text-decoration: none;
+  color: var(--gray-800); font-size: 14px; border: none;
+  background: none; cursor: pointer; width: 100%; transition: background 0.15s;
+}
+.navbar__dropdown a:hover, .navbar__dropdown button:hover {
+  background: var(--gray-100);
+}
+.navbar__burger { display: none; background: none; border: none; color: white; cursor: pointer; }
+@media (max-width: 768px) {
+  .navbar__links {
+    position: fixed; top: 68px; left: 0; right: 0;
+    background: var(--primary); flex-direction: column;
+    gap: 0; padding: 12px; display: none;
+  }
+  .navbar__links--open { display: flex; }
+  .navbar__links a { padding: 14px 16px; display: block; }
+  .navbar__burger { display: block; }
+  .navbar__actions .btn { display: none; }
+  .navbar__user { display: flex; }
+}

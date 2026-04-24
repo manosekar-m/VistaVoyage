@@ -1,0 +1,9 @@
+.profile-page { min-height: 100vh; padding-bottom: 80px; }
+.profile-grid { display: grid; grid-template-columns: 260px 1fr; gap: 24px; }
+.profile-card { background: white; border-radius: 20px; padding: 36px 24px; text-align: center; box-shadow: var(--shadow); height: fit-content; }
+.profile-card__avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--primary); color: var(--accent); font-size: 2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.profile-card h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 12px; }
+.profile-card p { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: var(--gray-600); margin-bottom: 8px; }
+.profile-form-card { background: white; border-radius: 20px; padding: 28px; box-shadow: var(--shadow); }
+.profile-form-card h3 { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; color: var(--primary); margin-bottom: 20px; }
+@media (max-width: 768px) { .profile-grid { grid-template-columns: 1fr; } }

@@ -1,0 +1,49 @@
+.admin-sidebar {
+  width: 240px; min-height: 100vh; background: var(--primary);
+  display: flex; flex-direction: column; padding: 24px 16px;
+  position: fixed; top: 0; left: 0; z-index: 500;
+  transition: transform 0.3s ease;
+}
+.admin-sidebar__logo {
+  display: flex; align-items: center; gap: 10px; color: white;
+  font-family: "Cormorant Garamond", serif; font-size: 1.35rem;
+  padding: 0 8px 24px; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.admin-sidebar__logo strong { color: var(--accent); }
+.admin-sidebar__admin {
+  display: flex; align-items: center; gap: 10px;
+  padding: 20px 8px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 12px;
+}
+.admin-sidebar__avatar {
+  width: 38px; height: 38px; border-radius: 50%; background: var(--accent);
+  color: var(--primary); font-weight: 700; font-size: 16px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.admin-sidebar__name { color: white; font-size: 14px; font-weight: 600; }
+.admin-sidebar__role { color: rgba(255,255,255,0.5); font-size: 12px; }
+.admin-sidebar__nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.admin-sidebar__link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: 10px; text-decoration: none;
+  color: rgba(255,255,255,0.65); font-size: 14px; transition: all 0.2s;
+}
+.admin-sidebar__link:hover { background: rgba(255,255,255,0.1); color: white; }
+.admin-sidebar__link--active { background: var(--accent) !important; color: var(--primary) !important; font-weight: 600; }
+.admin-sidebar__logout {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+  background: rgba(239,68,68,0.15); border: none; border-radius: 10px;
+  color: #fca5a5; cursor: pointer; font-size: 14px; transition: background 0.2s; width: 100%;
+}
+.admin-sidebar__logout:hover { background: rgba(239,68,68,0.3); }
+.sidebar__mobile-toggle {
+  display: none; position: fixed; top: 16px; left: 16px; z-index: 600;
+  background: var(--primary); color: white; border: none; border-radius: 8px;
+  padding: 8px; cursor: pointer;
+}
+.sidebar__overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 490; }
+@media (max-width: 900px) {
+  .admin-sidebar { transform: translateX(-100%); }
+  .admin-sidebar--open { transform: translateX(0); }
+  .sidebar__mobile-toggle { display: flex; }
+  .sidebar__overlay { display: block; }
+}
