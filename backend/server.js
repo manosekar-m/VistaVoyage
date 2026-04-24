@@ -56,7 +56,35 @@ app.get('/api/seed-admin', async (req, res) => {
       email: 'admin@vistavoyage.com', 
       password: 'Admin@123' 
     });
-    res.json({ message: 'Admin created successfully! You can now login.' });
+
+    const Package = require('./models/Package');
+    const pkgCount = await Package.countDocuments();
+    if (pkgCount === 0) {
+      await Package.create([
+        {
+          title: 'Parisian Elegance',
+          description: 'Experience the magic of the City of Light with private tours of the Eiffel Tower and Louvre.',
+          price: 150000,
+          location: 'Paris, France',
+          duration: '5 Days',
+          images: ['https://images.unsplash.com/photo-1502602898657-3e91760cbb34'],
+          category: 'Luxury',
+          isFeatured: true
+        },
+        {
+          title: 'Maldives Paradise',
+          description: 'Stay in an overwater villa and enjoy crystal clear waters and white sandy beaches.',
+          price: 250000,
+          location: 'Malé, Maldives',
+          duration: '7 Days',
+          images: ['https://images.unsplash.com/photo-1514282401047-d79a71a590e8'],
+          category: 'Beach',
+          isFeatured: true
+        }
+      ]);
+    }
+
+    res.json({ message: 'Admin and initial packages created successfully! Refresh your site.' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
