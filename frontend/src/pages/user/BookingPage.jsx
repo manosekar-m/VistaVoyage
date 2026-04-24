@@ -241,16 +241,47 @@ export default function BookingPage() {
             )}
 
             {/* Coupon */}
-            <div style={{ background: 'var(--gray-100)', borderRadius: 20, padding: '24px', marginBottom: 32 }}>
+            <div style={{ background: 'var(--gray-100)', borderRadius: 20, padding: '24px', marginBottom: 24 }}>
               <label className="booking-label">Promo Code</label>
               <div style={{ display: 'flex', gap: 12 }}>
                 <input className="booking-input" style={{ textTransform: 'uppercase', flex: 1 }} value={couponCode} onChange={e => setCouponCode(e.target.value.toUpperCase())} placeholder="ENTER CODE"/>
-                <button type="button" onClick={handleApplyCoupon} style={{ padding: '0 20px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: 12, fontWeight: 700, fontSize: 13 }}>Apply</button>
+                <button type="button" onClick={handleApplyCoupon} disabled={validatingCoupon} style={{ padding: '0 20px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: 'pointer', opacity: validatingCoupon ? 0.7 : 1 }}>
+                  {validatingCoupon ? '...' : 'Apply'}
+                </button>
+              </div>
+              {couponMsg.text && (
+                <div style={{ marginTop: 12, fontSize: 13, fontWeight: 700, color: couponMsg.type === 'success' ? '#10b981' : '#ef4444' }}>
+                  {couponMsg.text}
+                </div>
+              )}
+            </div>
+
+            {/* Price Breakdown */}
+            <div style={{ background: 'var(--bg-page)', borderRadius: 20, padding: '24px', marginBottom: 32, border: '1px solid var(--border-color)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12, color: 'var(--text-muted)' }}>
+                <span>Adults ({form.adults} × ₹{pkg.price.toLocaleString()})</span>
+                <span>₹{(pkg.price * form.adults).toLocaleString()}</span>
+              </div>
+              {form.children > 0 && (
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12, color: 'var(--text-muted)' }}>
+                  <span>Children ({form.children} × ₹{childCost.toLocaleString()})</span>
+                  <span>₹{(childCost * form.children).toLocaleString()}</span>
+                </div>
+              )}
+              {discount > 0 && (
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12, color: '#10b981', fontWeight: 700 }}>
+                  <span>Promo Discount</span>
+                  <span>- ₹{discount.toLocaleString()}</span>
+                </div>
+              )}
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 16, paddingTop: 16, borderTop: '1px dashed var(--border-color)', fontWeight: 800, fontSize: 18, color: 'var(--text-main)' }}>
+                <span>Total Amount</span>
+                <span>₹{total.toLocaleString()}</span>
               </div>
             </div>
 
             <button onClick={confirmBooking} disabled={loading} className="btn btn-primary" style={{ width: '100%', padding: 18, fontSize: 16 }}>
-              {loading ? 'Processing...' : 'Proceed to Payment'}
+              {loading ? 'Processing...' : `Proceed to Payment`}
             </button>
           </div>
         )}
