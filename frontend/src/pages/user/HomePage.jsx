@@ -42,13 +42,13 @@ export default function HomePage() {
           <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 'clamp(15px, 2vw, 19px)', maxWidth: 600, margin: '0 auto 40px', lineHeight: 1.7, animation: 'fadeIn 0.6s 0.2s ease both', padding: '0 16px' }}>
             Handcrafted travel experiences across India's most breathtaking destinations. From snow-capped peaks to sun-kissed shores.
           </p>
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', animation: 'fadeIn 0.6s 0.3s ease both', padding: '0 16px' }}>
-            <Link to="/packages" className="btn btn-accent" style={{ fontSize: 16, padding: '14px 32px' }}>Explore Packages <ArrowRight size={18}/></Link>
-            <Link to="/about" className="btn" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', fontSize: 16, padding: '14px 32px' }}>Learn More</Link>
+          <div className="hero-btns">
+            <Link to="/packages" className="btn btn-accent">Explore Packages <ArrowRight size={18}/></Link>
+            <Link to="/about" className="btn" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)' }}>Learn More</Link>
           </div>
 
           {/* Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 16, marginTop: 72, maxWidth: 800, margin: '72px auto 0', animation: 'fadeIn 0.6s 0.4s ease both', padding: '0 16px' }}>
+          <div className="hero-stats-grid">
             {stats.map(s => (
               <div key={s.label} style={{ textAlign: 'center', padding: '12px 8px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>

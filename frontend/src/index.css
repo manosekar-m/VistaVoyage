@@ -59,6 +59,11 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.1s ease; }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bg-page);
@@ -159,6 +164,21 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 .fade-in { animation: fadeIn 0.5s ease forwards; }
 .slide-in { animation: slideIn 0.5s ease forwards; }
 
+/* Hero Components */
+.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; animation: fadeIn 0.6s 0.3s ease both; padding: 0 16px; }
+.hero-btns .btn { padding: 14px 32px; font-size: 16px; }
+
+.hero-stats-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+  gap: 16px; 
+  margin-top: 72px; 
+  max-width: 800px; 
+  margin: 72px auto 0; 
+  animation: fadeIn 0.6s 0.4s ease both; 
+  padding: 0 16px; 
+}
+
 /* Premium Utilities */
 .glass {
   background: rgba(255, 255, 255, 0.05);
@@ -219,6 +239,15 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   .pkg-card-body { padding: 16px; }
   .wishlist-btn { width: 36px; height: 36px; top: 12px; right: 12px; }
   .pkg-card-price-row { padding-top: 12px; }
+
+  /* Hero Mobile Fixes */
+  .hero-btns { gap: 12px; }
+  .hero-btns .btn { padding: 12px 20px; font-size: 15px; flex: 1; min-width: 140px; }
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    margin-top: 40px !important;
+  }
 
   /* Grid Fixes */
   .grid-2, .grid-3, .grid-4 {
