@@ -36,6 +36,14 @@ app.use('/api/queries',   require('./routes/queryRoutes'));
 app.use('/api/reviews',   require('./routes/reviewRoutes'));
 
 // ── Health Check ────────────────────────────────────────────
+app.get('/api/health', (req, res) => {
+  const mongoose = require('mongoose');
+  res.json({ 
+    status: 'ok', 
+    db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    timestamp: new Date().toISOString()
+  });
+});
 app.get('/', (req, res) => res.json({ message: 'VistaVoyage API is running 🌍' }));
 
 // ── Global Error Handler ────────────────────────────────────
