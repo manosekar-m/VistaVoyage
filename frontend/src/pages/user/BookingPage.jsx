@@ -158,103 +158,67 @@ export default function BookingPage() {
 
       <div className="container" style={{ padding: '0 24px', maxWidth: 860 }}>
 
-        {/* Step Progress */}
-        <div style={{ background: 'var(--bg-card)', padding: '20px 32px', borderRadius: '0 0 24px 24px', boxShadow: 'var(--shadow)', marginBottom: 36, display: 'flex', alignItems: 'center', borderTop: '2px solid var(--accent)' }}>
-          {STEPS.map((label, i) => {
-            const n = i + 1, done = step > n, active = step === n;
-            return (
-              <React.Fragment key={label}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <div style={{ width: 38, height: 38, borderRadius: '50%', background: done ? 'var(--success)' : active ? 'linear-gradient(135deg, var(--accent), var(--accent-light))' : 'var(--gray-100)', color: done ? 'white' : active ? '#1a3a4a' : 'var(--text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 15, flexShrink: 0, transition: 'all 0.4s', boxShadow: active ? 'var(--shadow)' : 'none' }}>
-                    {done ? <CheckCircle size={20}/> : n}
-                  </div>
-                  <span style={{ fontSize: 14, fontWeight: active ? 800 : 600, color: active ? 'var(--text-main)' : 'var(--text-muted)', transition: 'all 0.3s', whiteSpace: 'nowrap' }}>{label}</span>
+      {/* Step Progress */}
+      <div style={{ background: 'var(--bg-card)', padding: '20px 24px', borderRadius: '0 0 24px 24px', boxShadow: 'var(--shadow)', marginBottom: 24, display: 'flex', alignItems: 'center', borderTop: '2px solid var(--accent)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        {STEPS.map((label, i) => {
+          const n = i + 1, done = step > n, active = step === n;
+          return (
+            <React.Fragment key={label}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: done ? 'var(--success)' : active ? 'linear-gradient(135deg, var(--accent), var(--accent-light))' : 'var(--gray-100)', color: done ? 'white' : active ? '#1a3a4a' : 'var(--text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 13, flexShrink: 0 }}>
+                  {done ? <CheckCircle size={18}/> : n}
                 </div>
-                {i < 2 && <div style={{ flex: 1, height: 2, background: done ? 'var(--success)' : 'var(--border-color)', margin: '0 24px', transition: 'background 0.5s', borderRadius: 4 }}/>}
-              </React.Fragment>
-            );
-          })}
-        </div>
-
-        {/* Price Summary pill */}
-        {step < 3 && (
-          <div style={{ background: 'var(--bg-card)', borderRadius: 20, padding: '20px 32px', marginBottom: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: 'var(--shadow)', border: '1px solid var(--border-color)', flexWrap: 'wrap', gap: 16 }}>
-            <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
-              <div>
-                <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 4 }}>Adults</div>
-                <div style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: 15 }}>{form.adults} × ₹{pkg.price?.toLocaleString()}</div>
+                <span className="desktop-nav" style={{ fontSize: 13, fontWeight: active ? 800 : 600, color: active ? 'var(--text-main)' : 'var(--text-muted)' }}>{label}</span>
               </div>
-              {form.children > 0 && (
-                <div>
-                  <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 4 }}>Children</div>
-                  <div style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: 15 }}>{form.children} × ₹{childCost?.toLocaleString()}</div>
-                </div>
-              )}
-              {discount > 0 && (
-                <div>
-                  <div style={{ fontSize: 11, color: 'var(--success)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 4 }}>Discount</div>
-                  <div style={{ fontWeight: 700, color: 'var(--success)', fontSize: 15 }}>−₹{discount.toLocaleString()}</div>
-                </div>
-              )}
-            </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 4 }}>Total Amount</div>
-              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-main)' }}>₹{total.toLocaleString()}</div>
-            </div>
-          </div>
-        )}
+              {i < 2 && <div style={{ flex: 1, minWidth: 20, height: 2, background: done ? 'var(--success)' : 'var(--border-color)', margin: '0 12px' }}/>}
+            </React.Fragment>
+          );
+        })}
+      </div>
 
-        {/* Error */}
-        {error && (
-          <div style={{ background: '#fff5f5', border: '1px solid #fecaca', color: '#dc2626', padding: '14px 20px', borderRadius: 14, marginBottom: 20, fontSize: 14, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 10 }}>
-            ⚠️ {error}
-          </div>
-        )}
-
+      <div className="container" style={{ padding: '0 16px', maxWidth: 860 }}>
         {/* ─── STEP 1: Trip Details ─── */}
         {step === 1 && (
-          <div style={{ background: 'var(--bg-card)', borderRadius: 28, padding: '44px 48px', boxShadow: 'var(--shadow)', border: '1px solid var(--border-color)' }}>
-            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem', color: 'var(--text-main)', fontWeight: 700, marginBottom: 36 }}>Your Trip Details</h2>
+          <div style={{ background: 'var(--bg-card)', borderRadius: 24, padding: '32px 24px', boxShadow: 'var(--shadow)', border: '1px solid var(--border-color)' }}>
+            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.8rem', color: 'var(--text-main)', fontWeight: 700, marginBottom: 24 }}>Your Trip Details</h2>
 
             {/* Traveller info */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 32 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 24 }}>
               <div>
                 <label className="booking-label">Full Name</label>
-                <input className="booking-input" value={user.name} readOnly style={{ background: 'var(--gray-100)', color: 'var(--text-muted)', cursor: 'not-allowed' }}/>
+                <input className="booking-input" value={user.name} readOnly style={{ background: 'var(--gray-100)', color: 'var(--text-muted)' }}/>
               </div>
               <div>
                 <label className="booking-label">Email Address</label>
-                <input className="booking-input" value={user.email} readOnly style={{ background: 'var(--gray-100)', color: 'var(--text-muted)', cursor: 'not-allowed' }}/>
+                <input className="booking-input" value={user.email} readOnly style={{ background: 'var(--gray-100)', color: 'var(--text-muted)' }}/>
               </div>
             </div>
 
             {/* Dates & Guests */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 24, marginBottom: 36 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 20, marginBottom: 24 }}>
               <div>
                 <label className="booking-label"><Calendar size={14} color="var(--accent)"/> Travel Date *</label>
-                <div style={{ position: 'relative' }}>
-                  <input className="booking-input" type="date" min={new Date().toISOString().split('T')[0]} value={form.travelDate} onChange={e => setForm({...form, travelDate: e.target.value})}/>
-                </div>
+                <input className="booking-input" type="date" min={new Date().toISOString().split('T')[0]} value={form.travelDate} onChange={e => setForm({...form, travelDate: e.target.value})}/>
               </div>
               <div>
-                <label className="booking-label"><Users size={12} style={{ verticalAlign: 'middle', marginRight: 4 }}/>Adults *</label>
-                <input className="booking-input" type="number" min={1} max={20} value={form.adults} onChange={e => setForm({...form, adults: Number(e.target.value)})}/>
+                <label className="booking-label">Adults *</label>
+                <input className="booking-input" type="number" min={1} value={form.adults} onChange={e => setForm({...form, adults: Number(e.target.value)})}/>
               </div>
               <div>
-                <label className="booking-label">Children (Under 12)</label>
-                <input className="booking-input" type="number" min={0} max={10} value={form.children} onChange={e => setForm({...form, children: Number(e.target.value)})}/>
+                <label className="booking-label">Children</label>
+                <input className="booking-input" type="number" min={0} value={form.children} onChange={e => setForm({...form, children: Number(e.target.value)})}/>
               </div>
             </div>
 
             {/* Food Preference */}
             {pkg.availableFoodOptions?.length > 0 && (
-              <div style={{ marginBottom: 32 }}>
-                <label className="booking-label"><Utensils size={12} style={{ verticalAlign: 'middle', marginRight: 6 }}/>Food Preference *</label>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+              <div style={{ marginBottom: 24 }}>
+                <label className="booking-label">Food Preference *</label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 12 }}>
                   {pkg.availableFoodOptions.map(opt => (
-                    <div key={opt} className={`pref-box${form.foodPreference === opt ? ' active' : ''}`} onClick={() => setForm({...form, foodPreference: opt})}>
-                      <div className="pref-box-emoji">{getEmoji('food', opt)}</div>
-                      <div className="pref-box-label">{opt}</div>
+                    <div key={opt} className={`pref-box${form.foodPreference === opt ? ' active' : ''}`} onClick={() => setForm({...form, foodPreference: opt})} style={{ maxWidth: 'none' }}>
+                      <div className="pref-box-emoji" style={{ fontSize: 24 }}>{getEmoji('food', opt)}</div>
+                      <div className="pref-box-label" style={{ fontSize: 12 }}>{opt}</div>
                     </div>
                   ))}
                 </div>
@@ -263,13 +227,13 @@ export default function BookingPage() {
 
             {/* Stay Preference */}
             {pkg.availableStayOptions?.length > 0 && (
-              <div style={{ marginBottom: 36 }}>
-                <label className="booking-label"><BedDouble size={12} style={{ verticalAlign: 'middle', marginRight: 6 }}/>Stay Preference *</label>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+              <div style={{ marginBottom: 32 }}>
+                <label className="booking-label">Stay Preference *</label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 12 }}>
                   {pkg.availableStayOptions.map(opt => (
-                    <div key={opt} className={`pref-box${form.stayPreference === opt ? ' active' : ''}`} onClick={() => setForm({...form, stayPreference: opt})}>
-                      <div className="pref-box-emoji">{getEmoji('stay', opt)}</div>
-                      <div className="pref-box-label">{opt}</div>
+                    <div key={opt} className={`pref-box${form.stayPreference === opt ? ' active' : ''}`} onClick={() => setForm({...form, stayPreference: opt})} style={{ maxWidth: 'none' }}>
+                      <div className="pref-box-emoji" style={{ fontSize: 24 }}>{getEmoji('stay', opt)}</div>
+                      <div className="pref-box-label" style={{ fontSize: 12 }}>{opt}</div>
                     </div>
                   ))}
                 </div>
@@ -277,141 +241,87 @@ export default function BookingPage() {
             )}
 
             {/* Coupon */}
-            <div style={{ background: 'var(--gray-100)', borderRadius: 20, padding: '28px 32px', marginBottom: 36, border: '1px solid var(--border-color)' }}>
-              <label className="booking-label" style={{ marginBottom: 16 }}><Tag size={12} style={{ verticalAlign: 'middle', marginRight: 6 }}/>Promo Code</label>
+            <div style={{ background: 'var(--gray-100)', borderRadius: 20, padding: '24px', marginBottom: 32 }}>
+              <label className="booking-label">Promo Code</label>
               <div style={{ display: 'flex', gap: 12 }}>
-                <input className="booking-input" style={{ textTransform: 'uppercase', letterSpacing: 2, fontWeight: 700, flex: 1 }} value={couponCode} onChange={e => setCouponCode(e.target.value.toUpperCase())} placeholder="ENTER CODE" disabled={discount > 0}/>
-                {!discount ? (
-                  <button type="button" onClick={handleApplyCoupon} disabled={validatingCoupon || !couponCode.trim()} style={{ padding: '0 28px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: 14, cursor: (validatingCoupon || !couponCode.trim()) ? 'not-allowed' : 'pointer', fontWeight: 700, fontSize: 14, whiteSpace: 'nowrap', transition: 'all 0.25s', opacity: (validatingCoupon || !couponCode.trim()) ? 0.6 : 1 }}
-                    onMouseEnter={e => { if (!validatingCoupon && couponCode.trim()) e.currentTarget.style.background = '#0a2540' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'var(--primary)' }}>
-                    {validatingCoupon ? <div className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }}/> : 'Apply'}
-                  </button>
-                ) : (
-                  <button type="button" onClick={() => { setDiscount(0); setCouponCode(''); setCouponMsg({type:'',text:''}); }} style={{ padding: '0 20px', background: '#fff1f1', color: '#dc2626', border: '1.5px solid #fecaca', borderRadius: 14, cursor: 'pointer', fontWeight: 700, fontSize: 14, whiteSpace: 'nowrap' }}>
-                    Remove
-                  </button>
-                )}
+                <input className="booking-input" style={{ textTransform: 'uppercase', flex: 1 }} value={couponCode} onChange={e => setCouponCode(e.target.value.toUpperCase())} placeholder="ENTER CODE"/>
+                <button type="button" onClick={handleApplyCoupon} style={{ padding: '0 20px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: 12, fontWeight: 700, fontSize: 13 }}>Apply</button>
               </div>
-              {couponMsg.text && (
-                <div style={{ marginTop: 14, fontSize: 14, color: couponMsg.type === 'success' ? 'var(--success)' : '#dc2626', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8 }}>
-                  {couponMsg.text}
-                </div>
-              )}
             </div>
 
-            <button onClick={confirmBooking} disabled={loading} style={{ width: '100%', padding: '20px', fontSize: 16, background: 'linear-gradient(135deg, var(--accent), var(--accent-light))', color: '#1a3a4a', border: 'none', borderRadius: 18, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.35s', boxShadow: 'var(--shadow)', opacity: loading ? 0.7 : 1 }}
-              onMouseEnter={e => { if (!loading) { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow)'; }}>
-              {loading ? <div className="spinner" style={{ width: 22, height: 22, borderWidth: 2 }}/> : <><span>Proceed to Secure Payment</span> <ArrowRight size={20}/></>}
+            <button onClick={confirmBooking} disabled={loading} className="btn btn-primary" style={{ width: '100%', padding: 18, fontSize: 16 }}>
+              {loading ? 'Processing...' : 'Proceed to Payment'}
             </button>
           </div>
         )}
 
         {/* ─── STEP 2: Payment ─── */}
         {step === 2 && (
-          <div style={{ background: 'var(--bg-card)', borderRadius: 28, padding: '44px 48px', boxShadow: 'var(--shadow)', border: '1px solid var(--border-color)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-              <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem', color: 'var(--text-main)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 14 }}>
-                <Lock size={22} color="var(--success)"/> Secure Checkout
-              </h2>
-              <div style={{ background: 'rgba(16,185,129,0.1)', color: 'var(--success)', padding: '7px 16px', borderRadius: 40, fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
-                🔒 SSL Encrypted
-              </div>
-            </div>
-            <p style={{ color: 'var(--text-muted)', fontSize: 14, marginBottom: 40, padding: '14px 20px', background: 'var(--gray-100)', borderRadius: 14, border: '1px solid var(--border-color)', fontWeight: 500 }}>
-              <Sparkles size={14} style={{ verticalAlign: 'middle', marginRight: 6, color: 'var(--accent)' }}/>
-              Demo mode: use any 16-digit number (e.g. 4111 1111 1111 1111)
-            </p>
-
+          <div style={{ background: 'var(--bg-card)', borderRadius: 24, padding: '32px 24px', boxShadow: 'var(--shadow)', border: '1px solid var(--border-color)' }}>
+            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.8rem', color: 'var(--text-main)', fontWeight: 700, marginBottom: 24 }}>Secure Payment</h2>
+            
             {/* Credit Card Visual */}
-            <div style={{ background: 'linear-gradient(135deg, var(--primary) 0%, #0a2540 100%)', borderRadius: 24, padding: '36px 40px', marginBottom: 36, position: 'relative', overflow: 'hidden', minHeight: 180 }}>
-              <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, borderRadius: '50%', background: 'rgba(255,255,255,0.04)' }}/>
-              <div style={{ position: 'absolute', bottom: -60, left: -20, width: 250, height: 250, borderRadius: '50%', background: 'rgba(255,255,255,0.03)' }}/>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 40 }}>
-                <CreditCard size={36} color="rgba(255,255,255,0.7)"/>
-                <div style={{ textAlign: 'right', color: 'var(--accent)', fontWeight: 800, fontSize: 13, letterSpacing: 1.5, textTransform: 'uppercase' }}>Visa / Mastercard</div>
+            <div style={{ background: 'linear-gradient(135deg, var(--primary) 0%, #0a2540 100%)', borderRadius: 20, padding: '24px', marginBottom: 24, color: 'white' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
+                <CreditCard size={32} opacity={0.7}/>
+                <span style={{ fontSize: 12, fontWeight: 800 }}>VISTA SECURE</span>
               </div>
-              <div style={{ fontFamily: 'monospace', fontSize: '1.6rem', color: 'white', letterSpacing: 4, marginBottom: 20, fontWeight: 600 }}>
-                {card.number || '•••• •••• •••• ••••'}
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'rgba(255,255,255,0.6)', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1.5 }}>
-                <span>{card.name || 'Cardholder Name'}</span>
+              <div style={{ fontSize: '1.4rem', letterSpacing: 3, marginBottom: 20 }}>{card.number || '•••• •••• •••• ••••'}</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, opacity: 0.7 }}>
+                <span>{card.name || 'CARDHOLDER'}</span>
                 <span>{card.expiry || 'MM/YY'}</span>
               </div>
             </div>
 
-            <div style={{ display: 'grid', gap: 24 }}>
+            <div style={{ display: 'grid', gap: 20 }}>
               <div>
                 <label className="booking-label">Card Number</label>
-                <div className="card-input-wrap">
-                  <CreditCard size={18} className="card-icon"/>
-                  <input className="booking-input" style={{ paddingLeft: 48 }} placeholder="1234 5678 9012 3456" maxLength={19} value={card.number} onChange={e => setCard({...card, number: formatCard(e.target.value)})}/>
-                </div>
+                <input className="booking-input" placeholder="1234 5678 9012 3456" value={card.number} onChange={e => setCard({...card, number: formatCard(e.target.value)})}/>
               </div>
               <div>
                 <label className="booking-label">Cardholder Name</label>
-                <input className="booking-input" placeholder="Name on card" value={card.name} onChange={e => setCard({...card, name: e.target.value.replace(/[^a-zA-Z\s]/g, '')})}/>
+                <input className="booking-input" placeholder="NAME ON CARD" value={card.name} onChange={e => setCard({...card, name: e.target.value.toUpperCase()})}/>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                 <div>
-                  <label className="booking-label">Expiry Date</label>
-                  <input className="booking-input" placeholder="MM/YY" maxLength={5} value={card.expiry} onChange={e => setCard({...card, expiry: formatExpiry(e.target.value)})}/>
+                  <label className="booking-label">Expiry</label>
+                  <input className="booking-input" placeholder="MM/YY" value={card.expiry} onChange={e => setCard({...card, expiry: formatExpiry(e.target.value)})}/>
                 </div>
                 <div>
-                  <label className="booking-label">CVV / CVC</label>
-                  <input className="booking-input" placeholder="•••" maxLength={3} type="password" value={card.cvv} onChange={e => setCard({...card, cvv: e.target.value.replace(/\D/g, '')})}/>
+                  <label className="booking-label">CVV</label>
+                  <input className="booking-input" type="password" placeholder="•••" value={card.cvv} onChange={e => setCard({...card, cvv: e.target.value.replace(/\D/g,'')})}/>
                 </div>
               </div>
             </div>
 
-            <button onClick={processPayment} disabled={loading} style={{ width: '100%', marginTop: 36, padding: '20px', fontSize: 17, background: 'linear-gradient(135deg, #c9a84c, #e6c76a)', color: 'var(--primary)', border: 'none', borderRadius: 18, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.35s', boxShadow: '0 10px 32px rgba(201,168,76,0.35)', letterSpacing: 0.5, opacity: loading ? 0.7 : 1 }}
-              onMouseEnter={e => { if (!loading) { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 18px 44px rgba(201,168,76,0.45)'; }}}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 32px rgba(201,168,76,0.35)'; }}>
-              {loading ? <div className="spinner" style={{ width: 22, height: 22, borderWidth: 2, borderTopColor: 'var(--primary)' }}/> : <><Lock size={20}/> <span>Pay ₹{total.toLocaleString()} Now</span></>}
+            <button onClick={processPayment} disabled={loading} className="btn btn-primary" style={{ width: '100%', padding: 18, marginTop: 32, background: 'var(--accent)', color: 'var(--primary)' }}>
+              {loading ? 'Processing...' : `Pay ₹${total.toLocaleString()}`}
             </button>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', marginTop: 20 }}>
-              <Shield size={14} color="var(--success)"/>
-              <span style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 600 }}>256-bit SSL · PCI Compliant · 100% Secure</span>
-            </div>
           </div>
         )}
 
         {/* ─── STEP 3: Success ─── */}
         {step === 3 && (
-          <div style={{ background: 'var(--bg-card)', borderRadius: 28, padding: '64px 48px', boxShadow: 'var(--shadow)', border: '1px solid var(--border-color)', textAlign: 'center' }}>
-            <div style={{ width: 100, height: 100, borderRadius: '50%', background: 'linear-gradient(135deg, var(--success), #065f46)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px', boxShadow: 'var(--shadow)' }}>
-              <CheckCircle size={52} color="white" strokeWidth={1.5}/>
+          <div style={{ background: 'var(--bg-card)', borderRadius: 24, padding: '48px 24px', boxShadow: 'var(--shadow)', border: '1px solid var(--border-color)', textAlign: 'center' }}>
+            <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'var(--success)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+              <CheckCircle size={40} color="white"/>
             </div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(16,185,129,0.1)', padding: '8px 20px', borderRadius: 40, color: 'var(--success)', fontSize: 13, fontWeight: 800, letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 24 }}>
-              <Sparkles size={14}/> Booking Confirmed
-            </div>
-            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '3rem', color: 'var(--text-main)', marginBottom: 16, fontWeight: 700 }}>You're All Set! 🎉</h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: 40, fontSize: 17, lineHeight: 1.7, maxWidth: 500, margin: '0 auto 40px' }}>
-              Your journey to <strong style={{ color: 'var(--primary)' }}>{pkg.title}</strong> has been confirmed. A confirmation has been sent to your email.
-            </p>
-
-            <div style={{ background: 'linear-gradient(135deg, var(--primary), #0a2540)', borderRadius: 20, padding: '28px 40px', marginBottom: 40, display: 'inline-block' }}>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 8 }}>Booking Reference</div>
-              <div style={{ fontFamily: 'monospace', fontSize: '1.8rem', fontWeight: 800, color: 'var(--accent)', letterSpacing: 3 }}>{booking?.bookingId}</div>
+            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', marginBottom: 12 }}>Booking Confirmed!</h2>
+            <p style={{ color: 'var(--text-muted)', marginBottom: 32 }}>Your adventure is ready. A confirmation email has been sent.</p>
+            
+            <div style={{ background: 'var(--gray-100)', padding: '20px', borderRadius: 16, marginBottom: 32 }}>
+              <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 4 }}>REFERENCE NUMBER</div>
+              <div style={{ fontWeight: 800, fontSize: 18, letterSpacing: 2 }}>{booking?.bookingId}</div>
             </div>
 
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button onClick={() => navigate('/my-bookings')} style={{ padding: '16px 36px', background: 'linear-gradient(135deg, var(--accent), var(--accent-light))', color: '#1a3a4a', border: 'none', borderRadius: 14, cursor: 'pointer', fontWeight: 700, fontSize: 15, display: 'flex', alignItems: 'center', gap: 10, transition: 'all 0.3s', boxShadow: 'var(--shadow)' }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow)'; }}>
-                View My Bookings <ChevronRight size={18}/>
-              </button>
-              <button onClick={() => navigate('/packages')} style={{ padding: '16px 36px', background: 'transparent', color: 'var(--text-main)', border: '2px solid var(--border-color)', borderRadius: 14, cursor: 'pointer', fontWeight: 700, fontSize: 15, transition: 'all 0.3s' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-color)'; e.currentTarget.style.color = 'var(--text-main)'; }}>
-                Explore More
-              </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <button onClick={() => navigate('/my-bookings')} className="btn btn-primary">My Bookings</button>
+              <button onClick={() => navigate('/')} className="btn btn-outline">Back to Home</button>
             </div>
           </div>
         )}
       </div>
+
     </div>
   );
 }

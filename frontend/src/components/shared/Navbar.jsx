@@ -66,73 +66,71 @@ export default function Navbar() {
         </div>
 
         {/* Auth & Theme Toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, position: 'relative' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           
-          {/* Currency Switcher */}
-          <div style={{ position: 'relative' }}>
+          <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            {/* Currency Switcher */}
+            <div style={{ position: 'relative' }}>
+              <button 
+                onClick={() => setCurrOpen(!currOpen)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.2)', borderRadius: 30, padding: '8px 14px',
+                  color: 'white', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: 13, fontWeight: 700
+                }}
+              >
+                <Globe size={14} /> {currency} <ChevronDown size={12} style={{ transform: currOpen ? 'rotate(180deg)' : 'none', transition: '0.3s' }} />
+              </button>
+              {currOpen && (
+                <div style={{ position: 'absolute', top: '120%', right: 0, background: 'var(--bg-card)', borderRadius: 12, border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', padding: '8px', zIndex: 1000, minWidth: 100 }}>
+                  {['INR', 'USD', 'EUR'].map(c => (
+                    <button 
+                      key={c}
+                      onClick={() => { setCurrency(c); setCurrOpen(false); }}
+                      style={{ 
+                        width: '100%', padding: '10px', textAlign: 'left', background: currency === c ? 'var(--sand)' : 'transparent',
+                        border: 'none', borderRadius: 8, color: 'var(--text-main)', cursor: 'pointer', fontSize: 13, fontWeight: 600
+                      }}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Theme Toggle */}
             <button 
-              onClick={() => setCurrOpen(!currOpen)}
+              onClick={toggleTheme}
               style={{
-                display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.2)', borderRadius: 30, padding: '8px 14px',
-                color: 'white', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: 13, fontWeight: 700
+                width: 38, height: 38, borderRadius: '50%', 
+                background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', color: 'white'
               }}
             >
-              <Globe size={14} /> {currency} <ChevronDown size={12} style={{ transform: currOpen ? 'rotate(180deg)' : 'none', transition: '0.3s' }} />
+              {theme === 'light' ? <Moon size={16} fill="white" /> : <Sun size={16} color="var(--accent)" fill="var(--accent)" />}
             </button>
-            {currOpen && (
-              <div style={{ position: 'absolute', top: '120%', right: 0, background: 'var(--bg-card)', borderRadius: 12, border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', padding: '8px', zIndex: 1000, minWidth: 100 }}>
-                {['INR', 'USD', 'EUR'].map(c => (
-                  <button 
-                    key={c}
-                    onClick={() => { setCurrency(c); setCurrOpen(false); }}
-                    style={{ 
-                      width: '100%', padding: '10px', textAlign: 'left', background: currency === c ? 'var(--sand)' : 'transparent',
-                      border: 'none', borderRadius: 8, color: 'var(--text-main)', cursor: 'pointer', fontSize: 13, fontWeight: 600
-                    }}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
-
-          {/* Theme Toggle */}
-          <button 
-            onClick={toggleTheme}
-            style={{
-              width: 40, height: 40, borderRadius: '50%', 
-              background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', color: 'white', transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: theme === 'dark' ? '0 0 15px rgba(201,168,76,0.3)' : 'none'
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.2)'; e.currentTarget.style.transform = 'rotate(12deg) scale(1.1)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.transform = 'rotate(0) scale(1)'; }}
-            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-          >
-            {theme === 'light' ? <Moon size={18} fill="white" /> : <Sun size={18} color="var(--accent)" fill="var(--accent)" />}
-          </button>
 
           {user ? (
             <div style={{ position: 'relative' }}>
               <button onClick={() => setDropOpen(!dropOpen)} style={{
                 display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.2)', borderRadius: 40, padding: '8px 16px',
-                color: 'white', cursor: 'pointer', fontFamily: 'DM Sans, sans-serif', fontSize: 14,
+                border: '1px solid rgba(255,255,255,0.2)', borderRadius: 40, padding: '6px 12px',
+                color: 'white', cursor: 'pointer',
               }}>
-                <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                   {user.avatar ? (
                     <img src={user.avatar} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
-                    <span style={{ color: 'var(--primary)', fontWeight: 800, fontSize: 13 }}>{user.name?.charAt(0).toUpperCase()}</span>
+                    <span style={{ color: 'var(--primary)', fontWeight: 800, fontSize: 12 }}>{user.name?.charAt(0).toUpperCase()}</span>
                   )}
                 </div>
-                <span style={{ fontWeight: 600 }}>{user.name?.split(' ')[0]}</span>
+                <span style={{ fontWeight: 600, fontSize: 13 }} className="desktop-nav">{user.name?.split(' ')[0]}</span>
               </button>
               {dropOpen && (
-                <div style={{ position: 'absolute', right: 0, top: '110%', background: 'var(--bg-card)', borderRadius: 12, boxShadow: '0 8px 32px rgba(0,0,0,0.15)', minWidth: 200, overflow: 'hidden', zIndex: 100, border: '1px solid var(--border-color)' }}>
+                <div style={{ position: 'absolute', right: 0, top: '110%', background: 'var(--bg-card)', borderRadius: 12, boxShadow: 'var(--shadow-lg)', minWidth: 200, overflow: 'hidden', zIndex: 1100, border: '1px solid var(--border-color)' }}>
                   {[
                     { to: '/profile',      icon: <User size={15}/>,         label: 'My Profile' },
                     { to: '/wishlist',     icon: <Heart size={15}/>,        label: 'Wishlist' },
@@ -153,7 +151,7 @@ export default function Navbar() {
                   <button onClick={handleLogout} style={{
                     display: 'flex', alignItems: 'center', gap: 10, padding: '12px 20px',
                     color: 'var(--danger)', background: 'none', border: 'none', cursor: 'pointer',
-                    width: '100%', fontFamily: 'DM Sans', fontSize: 14,
+                    width: '100%', fontFamily: 'DM Sans', fontSize: 14, textAlign: 'left'
                   }}>
                     <LogOut size={15}/> Logout
                   </button>
@@ -161,43 +159,71 @@ export default function Navbar() {
               )}
             </div>
           ) : (
-            <>
-              <Link to="/login" style={{ color: 'rgba(255,255,255,0.88)', textDecoration: 'none', fontWeight: 500, fontSize: 15 }}>Login</Link>
-              <Link to="/register" className="btn btn-accent btn-sm">Sign Up</Link>
-            </>
+            <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <Link to="/login" style={{ color: 'rgba(255,255,255,0.88)', textDecoration: 'none', fontWeight: 500, fontSize: 14 }}>Login</Link>
+              <Link to="/register" className="btn btn-accent btn-sm" style={{ padding: '8px 16px' }}>Sign Up</Link>
+            </div>
           )}
-          <button onClick={() => setOpen(!open)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', display: 'none' }} className="mobile-menu-btn">
-            {open ? <X size={24}/> : <Menu size={24}/>}
+          
+          {/* Mobile Toggle */}
+          <button onClick={() => setOpen(!open)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', display: 'none', padding: 8 }} className="mobile-menu-btn">
+            {open ? <X size={26}/> : <Menu size={26}/>}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <div style={{ background: 'rgba(26,58,74,0.98)', padding: '16px 24px 24px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+      {/* Mobile Drawer */}
+      <div style={{
+        position: 'fixed', top: 0, right: open ? 0 : '-100%', width: '85%', height: '100vh',
+        background: 'var(--primary)', zIndex: 2000, transition: '0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        padding: '80px 32px 40px', boxShadow: '-10px 0 30px rgba(0,0,0,0.3)',
+        display: 'flex', flexDirection: 'column'
+      }}>
+        <button onClick={() => setOpen(false)} style={{ position: 'absolute', top: 24, right: 24, background: 'none', border: 'none', color: 'white' }}>
+          <X size={30} />
+        </button>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           {links.map(l => (
-            <Link key={l.to} to={l.to} onClick={() => setOpen(false)} style={{ display: 'block', color: 'white', textDecoration: 'none', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.08)', fontSize: 16 }}>{l.label}</Link>
+            <Link key={l.to} to={l.to} onClick={() => setOpen(false)} style={{ 
+              color: location.pathname === l.to ? 'var(--accent)' : 'white', 
+              textDecoration: 'none', fontSize: 24, fontWeight: 600, fontFamily: 'Cormorant Garamond, serif' 
+            }}>{l.label}</Link>
           ))}
-          {user ? (
-            <>
-              <Link to="/my-bookings" onClick={() => setOpen(false)} style={{ display: 'block', color: 'white', textDecoration: 'none', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>My Bookings</Link>
-              <button onClick={handleLogout} style={{ marginTop: 12, background: 'var(--danger)', color: 'white', border: 'none', borderRadius: 8, padding: '10px 20px', cursor: 'pointer', fontFamily: 'DM Sans' }}>Logout</button>
-            </>
-          ) : (
-            <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
-              <Link to="/login"    onClick={() => setOpen(false)} className="btn btn-outline" style={{ color: 'white', borderColor: 'white' }}>Login</Link>
-              <Link to="/register" onClick={() => setOpen(false)} className="btn btn-accent">Sign Up</Link>
+          
+          <div style={{ height: 1, background: 'rgba(255,255,255,0.1)', margin: '8px 0' }} />
+          
+          <div style={{ display: 'flex', gap: 12 }}>
+            <button onClick={toggleTheme} style={{ flex: 1, padding: 12, borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              {theme === 'light' ? <><Moon size={18}/> Dark Mode</> : <><Sun size={18} color="var(--accent)"/> Light Mode</>}
+            </button>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 'auto' }}>
+          {!user ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <Link to="/login" onClick={() => setOpen(false)} className="btn btn-outline" style={{ color: 'white', borderColor: 'white' }}>Login</Link>
+              <Link to="/register" onClick={() => setOpen(false)} className="btn btn-accent">Create Account</Link>
             </div>
+          ) : (
+            <button onClick={handleLogout} style={{ width: '100%', padding: 14, borderRadius: 12, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#ef4444', fontWeight: 700 }}>
+              Logout of Account
+            </button>
           )}
         </div>
-      )}
+      </div>
+      
+      {/* Overlay */}
+      {open && <div onClick={() => setOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)', zIndex: 1999 }} />}
 
       <style>{`
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: block !important; }
         }
       `}</style>
+
     </nav>
   );
 }

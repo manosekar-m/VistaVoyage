@@ -38,50 +38,59 @@ export default function PackagesPage() {
       <style>{`
         .filter-input { border: none; outline: none; font-size: 15px; width: 100%; color: var(--text-main); background: transparent; font-weight: 500; }
         .filter-input::placeholder { color: var(--text-muted); font-weight: 400; }
+        
+        .search-bar-wrap { background: var(--bg-card); borderRadius: 28px; padding: 16px 32px; boxShadow: var(--shadow-lg); display: flex; gap: 0; align-items: center; border: 1px solid var(--border-color); backdrop-filter: blur(20px); }
+        .search-field { border-right: 1px solid var(--border-color); padding-right: 24px; margin-right: 24px; }
+        
+        @media (max-width: 992px) {
+          .search-bar-wrap { flex-direction: column; padding: 24px; borderRadius: 24px; gap: 20px; }
+          .search-field { border-right: none; padding-right: 0; margin-right: 0; width: 100%; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; }
+          .search-btn-wrap { width: 100%; }
+          .search-btn-wrap button { width: 100%; justify-content: center; }
+          .packages-grid { grid-template-columns: 1fr !important; }
+          .hero-section-pkg { height: 380px !important; }
+        }
       `}</style>
 
       {/* Hero */}
-      <div style={{ position: 'relative', height: 480, overflow: 'hidden' }}>
+      <div className="hero-section-pkg" style={{ position: 'relative', height: 480, overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'url(https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1800) center/cover no-repeat' }}/>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(5,15,25,0.4) 0%, rgba(5,15,25,0.85) 100%)' }}/>
         <div className="container" style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 24px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(201,168,76,0.2)', border: '1px solid rgba(201,168,76,0.4)', padding: '8px 20px', borderRadius: 40, color: 'var(--accent)', fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 24, backdropFilter: 'blur(10px)' }}>
             <Sparkles size={14}/> Handcrafted Experiences
           </div>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2.5rem, 6vw, 4.2rem)', color: 'white', lineHeight: 1.1, fontWeight: 700, marginBottom: 20 }}>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2rem, 5vw, 4.2rem)', color: 'white', lineHeight: 1.1, fontWeight: 700, marginBottom: 20 }}>
             Where Will Your Next<br/><span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Story Begin?</span>
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 18, fontWeight: 400, maxWidth: 540, lineHeight: 1.7 }}>
-            {packages.length}+ curated journeys across breathtaking destinations.
-          </p>
         </div>
       </div>
 
       {/* Floating Search Bar */}
       <div className="container" style={{ marginTop: -44, position: 'relative', zIndex: 20, padding: '0 24px' }}>
-        <div style={{ background: 'var(--bg-card)', borderRadius: 28, padding: '16px 32px', boxShadow: 'var(--shadow-lg)', display: 'flex', gap: 0, alignItems: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(20px)' }}>
-          <div style={{ flex: '2 1 200px', borderRight: '1px solid var(--border-color)', paddingRight: 24, marginRight: 24 }}>
+        <div className="search-bar-wrap">
+          <div className="search-field" style={{ flex: '2 1 200px' }}>
             <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 4 }}>Where</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <MapPin size={18} color="var(--accent)" strokeWidth={2.5}/>
               <input className="filter-input" placeholder="Destination, city..." value={filters.location} onChange={e => setFilters({...filters, location: e.target.value})} onKeyDown={e => e.key === 'Enter' && applyFilters()}/>
             </div>
           </div>
-          <div style={{ flex: '1 1 140px', borderRight: '1px solid var(--border-color)', paddingRight: 24, marginRight: 24 }}>
+          <div className="search-field" style={{ flex: '1 1 140px' }}>
             <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 4 }}>Budget (Max)</div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               <span style={{ color: 'var(--text-muted)', fontWeight: 700 }}>₹</span>
               <input className="filter-input" type="number" placeholder="Max ₹" value={filters.maxPrice} onChange={e => setFilters({...filters, maxPrice: e.target.value})}/>
             </div>
           </div>
-          <div style={{ flex: '1 1 100px', paddingRight: 24, marginRight: 24 }}>
+          <div className="search-field" style={{ flex: '1 1 100px', borderRight: 'none', paddingRight: 0, marginRight: 0 }}>
             <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 4 }}>Duration</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <Clock size={16} color="var(--accent)" strokeWidth={2.5}/>
               <input className="filter-input" type="number" placeholder="Days" value={filters.duration} onChange={e => setFilters({...filters, duration: e.target.value})}/>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 12, flexShrink: 0 }}>
+          <div className="search-btn-wrap" style={{ display: 'flex', gap: 12, flexShrink: 0 }}>
             {hasFilters && (
               <button onClick={clearFilters} style={{ width: 52, height: 52, background: '#fee2e2', border: 'none', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s', color: '#ef4444' }}>
                 <X size={18}/>
@@ -97,7 +106,7 @@ export default function PackagesPage() {
       {/* Categories & Sorting */}
       <div className="container" style={{ paddingTop: 64, padding: '64px 24px 0' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
-          <div style={{ display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 8, msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+          <div style={{ display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 12, msOverflowStyle: 'none', scrollbarWidth: 'none', width: '100%', maxWidth: '100%' }}>
             {['Adventure', 'Romantic', 'Family', 'Pilgrimage', 'Luxury', 'Budget'].map(cat => (
               <button
                 key={cat}
@@ -124,7 +133,7 @@ export default function PackagesPage() {
             ))}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%', justifyContent: 'space-between' }}>
             <span style={{ fontSize: 14, color: 'var(--text-muted)', fontWeight: 600 }}>Sort by:</span>
             <select
               value={filters.sortBy}
@@ -175,7 +184,7 @@ export default function PackagesPage() {
               <p style={{ color: 'var(--text-muted)', marginTop: 8, fontSize: 16, fontWeight: 500 }}>{packages.length} curated experiences available for you</p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: 32 }}>
+            <div className="packages-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: 32 }}>
               {packages.map(pkg => (
                 <PackageCard key={pkg._id} pkg={pkg} />
               ))}
@@ -184,5 +193,6 @@ export default function PackagesPage() {
         )}
       </div>
     </div>
+
   );
 }

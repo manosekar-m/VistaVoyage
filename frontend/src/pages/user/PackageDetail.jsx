@@ -235,11 +235,27 @@ export default function PackageDetail() {
         .itin-item:hover { box-shadow: var(--shadow-lg); }
         .gallery-btn { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; width: 54px; height: 54px; cursor: pointer; color: white; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(12px); transition: all 0.3s; }
         .gallery-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.05); }
-        @media (max-width: 900px) { .detail-grid { grid-template-columns: 1fr !important; } }
+        
+        .mobile-book-bar { display: none; }
+
+        @media (max-width: 900px) { 
+          .detail-grid { grid-template-columns: 1fr !important; gap: 32px !important; } 
+          .mobile-book-bar { 
+            display: flex; position: fixed; bottom: 0; left: 0; right: 0; 
+            background: var(--bg-card); padding: 16px 24px; z-index: 1000; 
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1); border-top: 1px solid var(--border-color);
+            align-items: center; justify-content: space-between;
+          }
+          .hero-section { height: 450px !important; }
+          .hero-content { padding-bottom: 32px !important; }
+          .hero-title { font-size: 2.2rem !important; }
+          .gallery-btn { width: 44px; height: 44px; }
+          .left-col-card { padding: 24px !important; }
+        }
       `}</style>
 
       {/* Cinematic Hero Gallery */}
-      <div style={{ position: 'relative', height: 620, overflow: 'hidden', background: '#0a1628' }}>
+      <div className="hero-section" style={{ position: 'relative', height: 620, overflow: 'hidden', background: '#0a1628' }}>
         <img
           key={imgIdx}
           src={images[imgIdx]}
@@ -255,52 +271,31 @@ export default function PackageDetail() {
         {/* Nav arrows */}
         {images.length > 1 && (
           <>
-            <button className="gallery-btn" onClick={() => setImgIdx((imgIdx - 1 + images.length) % images.length)} style={{ position: 'absolute', left: 32, top: '50%', transform: 'translateY(-50%)', border: 'none' }}><ArrowLeft size={22}/></button>
-            <button className="gallery-btn" onClick={() => setImgIdx((imgIdx + 1) % images.length)} style={{ position: 'absolute', right: 32, top: '50%', transform: 'translateY(-50%)', border: 'none' }}><ArrowRight size={22}/></button>
-            <div style={{ position: 'absolute', bottom: 32, right: 40, display: 'flex', gap: 10 }}>
-              {images.map((_, i) => (
-                <button key={i} onClick={() => setImgIdx(i)} style={{ width: i === imgIdx ? 28 : 8, height: 8, borderRadius: 4, background: i === imgIdx ? 'var(--accent)' : 'rgba(255,255,255,0.4)', border: 'none', cursor: 'pointer', transition: 'all 0.4s cubic-bezier(0.4,0,0.2,1)', padding: 0 }}/>
-              ))}
-            </div>
+            <button className="gallery-btn" onClick={() => setImgIdx((imgIdx - 1 + images.length) % images.length)} style={{ position: 'absolute', left: 24, top: '50%', transform: 'translateY(-50%)', border: 'none' }}><ArrowLeft size={20}/></button>
+            <button className="gallery-btn" onClick={() => setImgIdx((imgIdx + 1) % images.length)} style={{ position: 'absolute', right: 24, top: '50%', transform: 'translateY(-50%)', border: 'none' }}><ArrowRight size={20}/></button>
           </>
         )}
 
         {/* Back link */}
-        <Link to="/packages" style={{ position: 'absolute', top: 32, left: 32, display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.85)', textDecoration: 'none', fontSize: 14, fontWeight: 600, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', padding: '10px 20px', borderRadius: 40, border: '1px solid rgba(255,255,255,0.2)', transition: 'all 0.3s' }}
-          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
-          onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}>
-          <ArrowLeft size={16}/> All Packages
+        <Link to="/packages" style={{ position: 'absolute', top: 24, left: 24, display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.85)', textDecoration: 'none', fontSize: 13, fontWeight: 600, background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', padding: '8px 16px', borderRadius: 40, border: '1px solid rgba(255,255,255,0.2)', transition: 'all 0.3s' }}>
+          <ArrowLeft size={14}/> Back
         </Link>
 
         {/* Title overlay */}
-        <div className="container" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 32px 52px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.4)', padding: '7px 18px', borderRadius: 40, color: 'var(--accent)', fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 20, backdropFilter: 'blur(10px)' }}>
-            <Sparkles size={13}/> Premium Tour
+        <div className="container hero-content" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 24px 52px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.4)', padding: '6px 14px', borderRadius: 40, color: 'var(--accent)', fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16, backdropFilter: 'blur(10px)' }}>
+            <Sparkles size={12}/> Premium Tour
           </div>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2rem, 4.5vw, 3.8rem)', color: 'white', lineHeight: 1.05, fontWeight: 700, textShadow: '0 4px 24px rgba(0,0,0,0.4)', marginBottom: 20, maxWidth: 700 }}>
+          <h1 className="hero-title" style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2rem, 4.5vw, 3.8rem)', color: 'white', lineHeight: 1.1, fontWeight: 700, textShadow: '0 4px 24px rgba(0,0,0,0.4)', marginBottom: 16, maxWidth: 700 }}>
             {pkg.title}
-            {pkg.nights && <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.65em', fontStyle: 'italic', display: 'block' }}>{pkg.duration} Days / {pkg.nights} Nights</span>}
           </h1>
-          <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', alignItems: 'flex-end' }}>
+          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'flex-end' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1 }}>Starting from</span>
-              <span style={{ fontSize: 32, fontWeight: 700, color: 'var(--accent)', lineHeight: 1 }}>{formatPrice(pkg.price)}</span>
+              <span style={{ fontSize: 28, fontWeight: 700, color: 'var(--accent)', lineHeight: 1 }}>{formatPrice(pkg.price)}</span>
             </div>
-            <span style={{ color: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', gap: 8, fontSize: 15, fontWeight: 600, paddingBottom: 6 }}><MapPin size={17} color="var(--accent)"/>{pkg.location}</span>
-            <span style={{ color: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', gap: 8, fontSize: 15, fontWeight: 600, paddingBottom: 6 }}><Clock size={17} color="var(--accent)"/>{pkg.duration} Days</span>
-            <span style={{ color: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', gap: 8, fontSize: 15, fontWeight: 600, paddingBottom: 6 }}><Star size={15} color="var(--accent)" fill="var(--accent)"/>{pkg.averageRating || 0} ({pkg.totalReviews || 0} Reviews)</span>
+            <span style={{ color: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 600, paddingBottom: 4 }}><MapPin size={15} color="var(--accent)"/>{pkg.location}</span>
+            <span style={{ color: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 600, paddingBottom: 4 }}><Clock size={15} color="var(--accent)"/>{pkg.duration} Days</span>
           </div>
-
-          <button 
-            onClick={downloadPDF}
-            style={{ 
-              position: 'absolute', bottom: 52, right: 32, padding: '14px 28px', background: 'rgba(255,255,255,0.1)', 
-              border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, color: 'white', fontWeight: 700, 
-              display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', backdropFilter: 'blur(10px)' 
-            }}
-          >
-            <Download size={18} /> Download Brochure
-          </button>
         </div>
       </div>
 
@@ -629,6 +624,17 @@ export default function PackageDetail() {
           </div>
         </div>
         </div>
+      </div>
+
+      {/* Mobile Sticky Bar */}
+      <div className="mobile-book-bar">
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)' }}>{formatPrice(pkg.price)}</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>per person</div>
+        </div>
+        <button onClick={handleBook} className="btn btn-primary" style={{ width: 'auto', padding: '12px 24px' }}>
+          Book Now
+        </button>
       </div>
 
       {/* Review Modal */}

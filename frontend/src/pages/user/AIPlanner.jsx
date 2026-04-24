@@ -65,28 +65,42 @@ export default function AIPlanner() {
   };
 
   return (
-    <div style={{ paddingTop: 100, minHeight: '100vh', background: 'var(--bg-page)', paddingBottom: 100 }}>
+    <div style={{ paddingTop: 80, minHeight: '100vh', background: 'var(--bg-page)', paddingBottom: 100 }}>
+      <style>{`
+        .ai-grid { display: grid; gridTemplateColumns: 350px 1fr; gap: 40px; }
+        .ai-hero-title { font-size: 3.5rem; }
+        
+        @media (max-width: 992px) {
+          .ai-grid { grid-template-columns: 1fr !important; gap: 32px; }
+          .ai-hero-title { font-size: 2.5rem !important; }
+          .ai-form-card { padding: 24px !important; }
+          .ai-result-card { padding: 24px !important; }
+          .itinerary-day { padding: 16px !important; }
+          .itinerary-list { padding-left: 32px !important; }
+        }
+      `}</style>
+
       <div className="container" style={{ maxWidth: 1000 }}>
         
-        <div style={{ textAlign: 'center', marginBottom: 60 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(201,168,76,0.1)', padding: '8px 20px', borderRadius: 40, color: 'var(--accent)', fontWeight: 700, fontSize: 14, marginBottom: 20 }}>
-            <Sparkles size={16} />
+        <div style={{ textAlign: 'center', marginBottom: 40, padding: '0 24px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(201,168,76,0.1)', padding: '8px 20px', borderRadius: 40, color: 'var(--accent)', fontWeight: 700, fontSize: 13, marginBottom: 16 }}>
+            <Sparkles size={14} />
             Powered by VistaVoyage AI
           </div>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '3.5rem', color: 'var(--text-main)', marginBottom: 16 }}>AI Travel Architect</h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: 18, maxWidth: 600, margin: '0 auto' }}>
+          <h1 className="ai-hero-title" style={{ fontFamily: 'Cormorant Garamond, serif', color: 'var(--text-main)', marginBottom: 16, fontWeight: 700 }}>AI Travel Architect</h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: 16, maxWidth: 600, margin: '0 auto', lineHeight: 1.6 }}>
             Describe your dream escape and let our intelligent architect craft a bespoke journey just for you.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: result ? '350px 1fr' : '1fr', gap: 40, transition: 'all 0.5s ease' }}>
+        <div className="ai-grid" style={{ transition: 'all 0.5s ease', padding: '0 16px' }}>
           
           {/* Form Section */}
-          <div style={{ background: 'var(--bg-card)', borderRadius: 24, padding: 32, border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', height: 'fit-content' }}>
+          <div className="ai-form-card" style={{ background: 'var(--bg-card)', borderRadius: 24, padding: 32, border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', height: 'fit-content' }}>
             <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: 24 }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 12 }}>
-                  <MapPin size={14} /> Destination
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 10, letterSpacing: 1 }}>
+                  <MapPin size={12} /> Destination
                 </label>
                 <input 
                   required
@@ -97,10 +111,10 @@ export default function AIPlanner() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
                 <div>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 12 }}>
-                    <Calendar size={14} /> Duration
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 10, letterSpacing: 1 }}>
+                    <Calendar size={12} /> Duration
                   </label>
                   <input 
                     required
@@ -112,8 +126,8 @@ export default function AIPlanner() {
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 12 }}>
-                    <Users size={14} /> Travelers
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 10, letterSpacing: 1 }}>
+                    <Users size={12} /> Travelers
                   </label>
                   <select 
                     className="form-input"
@@ -128,14 +142,14 @@ export default function AIPlanner() {
                 </div>
               </div>
 
-              <div style={{ marginBottom: 32 }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 12 }}>
-                  <Info size={14} /> Preferences
+              <div style={{ marginBottom: 24 }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 10, letterSpacing: 1 }}>
+                  <Info size={12} /> Preferences
                 </label>
                 <textarea 
                   className="form-input" 
                   style={{ minHeight: 100, padding: 15, resize: 'none' }}
-                  placeholder="e.g. Adventure-focused, hidden gems, kid-friendly, luxury stays..."
+                  placeholder="e.g. Adventure-focused, kid-friendly..."
                   value={formData.preferences}
                   onChange={e => setFormData({...formData, preferences: e.target.value})}
                 />
@@ -144,9 +158,9 @@ export default function AIPlanner() {
               <button 
                 type="submit" 
                 disabled={loading}
-                style={{ width: '100%', padding: 16, background: 'var(--accent)', color: 'var(--primary-navy)', border: 'none', borderRadius: 12, fontWeight: 800, fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}
+                style={{ width: '100%', padding: 16, background: 'var(--accent)', color: 'var(--primary-navy)', border: 'none', borderRadius: 12, fontWeight: 800, fontSize: 15, cursor: loading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, opacity: loading ? 0.7 : 1 }}
               >
-                {loading ? <div className="spinner" style={{ width: 20, height: 20, borderWidth: 2 }} /> : <><Sparkles size={18} /> Craft My Journey</>}
+                {loading ? <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} /> : <><Sparkles size={16} /> Craft My Journey</>}
               </button>
             </form>
           </div>
@@ -154,49 +168,49 @@ export default function AIPlanner() {
           {/* Result Section */}
           {result && (
             <div style={{ animation: 'fadeIn 0.8s ease' }}>
-              <div style={{ background: 'var(--bg-card)', borderRadius: 24, padding: 40, border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', position: 'relative' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32 }}>
+              <div className="ai-result-card" style={{ background: 'var(--bg-card)', borderRadius: 24, padding: 40, border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', position: 'relative' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32, flexWrap: 'wrap', gap: 20 }}>
                   <div>
-                    <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.5rem', color: 'var(--text-main)', marginBottom: 8 }}>{result.title}</h2>
-                    <p style={{ color: 'var(--text-muted)', fontSize: 16, fontStyle: 'italic' }}>{result.summary}</p>
+                    <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: 'var(--text-main)', marginBottom: 8, fontWeight: 700 }}>{result.title}</h2>
+                    <p style={{ color: 'var(--text-muted)', fontSize: 15, fontStyle: 'italic', lineHeight: 1.5 }}>{result.summary}</p>
                   </div>
                   <button 
                     onClick={savePDF}
-                    style={{ background: 'var(--gray-100)', color: 'var(--text-main)', border: 'none', padding: '10px 16px', borderRadius: 10, display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontWeight: 600 }}
+                    style={{ background: 'var(--gray-100)', color: 'var(--text-main)', border: 'none', padding: '10px 18px', borderRadius: 12, display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontWeight: 700, fontSize: 13 }}
                   >
-                    <Download size={16} /> Save PDF
+                    <Download size={14} /> Save PDF
                   </button>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                   {result.itinerary.map((day, idx) => (
-                    <div key={idx} style={{ padding: 24, background: 'var(--bg-page)', borderRadius: 20, border: '1px solid var(--border-color)' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-                        <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--accent)', color: 'var(--primary-navy)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800 }}>{day.day}</div>
-                        <h3 style={{ fontSize: 18, color: 'var(--text-main)', fontWeight: 700 }}>{day.title}</h3>
+                    <div key={idx} className="itinerary-day" style={{ padding: 24, background: 'var(--bg-page)', borderRadius: 20, border: '1px solid var(--border-color)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--accent)', color: 'var(--primary-navy)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 14 }}>{day.day}</div>
+                        <h3 style={{ fontSize: 17, color: 'var(--text-main)', fontWeight: 700, margin: 0 }}>{day.title}</h3>
                       </div>
-                      <ul style={{ paddingLeft: 52, margin: 0 }}>
+                      <ul className="itinerary-list" style={{ paddingLeft: 48, margin: 0 }}>
                         {day.activities.map((act, i) => (
-                          <li key={i} style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 8, lineHeight: 1.6 }}>{act}</li>
+                          <li key={i} style={{ color: 'var(--text-muted)', fontSize: 14, marginBottom: 6, lineHeight: 1.5 }}>{act}</li>
                         ))}
                       </ul>
                     </div>
                   ))}
                 </div>
 
-                <div style={{ marginTop: 40, padding: 24, background: 'rgba(201,168,76,0.05)', borderRadius: 20, border: '1px dashed var(--accent)' }}>
-                  <h4 style={{ color: 'var(--accent)', fontSize: 14, fontWeight: 800, textTransform: 'uppercase', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}><Info size={16} /> Architect's Tips</h4>
-                  <p style={{ color: 'var(--text-main)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>{result.travelTips}</p>
+                <div style={{ marginTop: 32, padding: 20, background: 'rgba(201,168,76,0.04)', borderRadius: 16, border: '1px dashed var(--accent)' }}>
+                  <h4 style={{ color: 'var(--accent)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8, letterSpacing: 1 }}><Info size={14} /> Architect's Tips</h4>
+                  <p style={{ color: 'var(--text-main)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>{result.travelTips}</p>
                 </div>
               </div>
             </div>
           )}
 
           {!result && !loading && (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.3 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.15 }}>
               <div style={{ textAlign: 'center' }}>
-                <Sparkles size={100} style={{ marginBottom: 20 }} />
-                <p style={{ fontSize: 24, fontFamily: 'Cormorant Garamond' }}>Waiting to craft your magic...</p>
+                <Sparkles size={80} style={{ marginBottom: 20 }} />
+                <p style={{ fontSize: 20, fontFamily: 'Cormorant Garamond', fontWeight: 600 }}>Waiting to craft your journey...</p>
               </div>
             </div>
           )}
