@@ -44,6 +44,24 @@ app.use('/api/coupons',   require('./routes/couponRoutes'));
 app.use('/api/queries',   require('./routes/queryRoutes'));
 app.use('/api/reviews',   require('./routes/reviewRoutes'));
 
+// ── Seed Admin ──────────────────────────────────────────────
+app.get('/api/seed-admin', async (req, res) => {
+  try {
+    const Admin = require('./models/Admin');
+    const existing = await Admin.findOne({ email: 'admin@vistavoyage.com' });
+    if (existing) return res.json({ message: 'Admin already exists' });
+    
+    await Admin.create({ 
+      name: 'System Admin', 
+      email: 'admin@vistavoyage.com', 
+      password: 'Admin@123' 
+    });
+    res.json({ message: 'Admin created successfully! You can now login.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── Health Check ────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
   const mongoose = require('mongoose');
