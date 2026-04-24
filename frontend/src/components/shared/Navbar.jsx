@@ -159,10 +159,15 @@ export default function Navbar() {
               )}
             </div>
           ) : (
-            <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <Link to="/login" style={{ color: 'rgba(255,255,255,0.88)', textDecoration: 'none', fontWeight: 500, fontSize: 14 }}>Login</Link>
-              <Link to="/register" className="btn btn-accent btn-sm" style={{ padding: '8px 16px' }}>Sign Up</Link>
-            </div>
+            <>
+              {/* Desktop login buttons */}
+              <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <Link to="/login" style={{ color: 'rgba(255,255,255,0.88)', textDecoration: 'none', fontWeight: 500, fontSize: 14 }}>Login</Link>
+                <Link to="/register" className="btn btn-accent btn-sm" style={{ padding: '8px 16px' }}>Sign Up</Link>
+              </div>
+              {/* Mobile login button - always visible in navbar */}
+              <Link to="/login" className="mobile-login-btn" style={{ display: 'none', color: 'var(--accent)', textDecoration: 'none', fontWeight: 700, fontSize: 14, border: '1px solid var(--accent)', borderRadius: 20, padding: '6px 16px' }}>Login</Link>
+            </>
           )}
           
           {/* Mobile Toggle */}
@@ -184,6 +189,16 @@ export default function Navbar() {
         </button>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          {/* Login/Sign Up at top of drawer for unauthenticated users */}
+          {!user && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 8 }}>
+              <Link to="/login" onClick={() => setOpen(false)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px', borderRadius: 14, background: 'rgba(201,168,76,0.15)', border: '1px solid var(--accent)', color: 'var(--accent)', textDecoration: 'none', fontWeight: 700, fontSize: 16 }}>Login</Link>
+              <Link to="/register" onClick={() => setOpen(false)} className="btn btn-accent" style={{ textAlign: 'center', padding: '14px', borderRadius: 14, fontSize: 16, fontWeight: 700 }}>Create Account</Link>
+            </div>
+          )}
+
+          <div style={{ height: 1, background: 'rgba(255,255,255,0.1)' }} />
+
           {links.map(l => (
             <Link key={l.to} to={l.to} onClick={() => setOpen(false)} style={{ 
               color: location.pathname === l.to ? 'var(--accent)' : 'white', 
@@ -201,12 +216,7 @@ export default function Navbar() {
         </div>
 
         <div style={{ marginTop: 'auto' }}>
-          {!user ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <Link to="/login" onClick={() => setOpen(false)} className="btn btn-outline" style={{ color: 'white', borderColor: 'white' }}>Login</Link>
-              <Link to="/register" onClick={() => setOpen(false)} className="btn btn-accent">Create Account</Link>
-            </div>
-          ) : (
+          {user && (
             <button onClick={handleLogout} style={{ width: '100%', padding: 14, borderRadius: 12, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#ef4444', fontWeight: 700 }}>
               Logout of Account
             </button>
@@ -221,6 +231,7 @@ export default function Navbar() {
         @media (max-width: 992px) {
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: block !important; }
+          .mobile-login-btn { display: flex !important; }
         }
       `}</style>
 
