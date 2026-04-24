@@ -71,7 +71,7 @@ export default function LoginPage() {
           </form>
 
           <div style={{ textAlign: 'center', marginTop: 24 }}>
-            <Link to="/admin/login" style={{ color: 'var(--gray-400)', fontSize: 13, textDecoration: 'none' }}>Admin Login →</Link>
+            <Link to="/admin/login" style={{ color: 'var(--gray-400)', fontSize: 13, textDecoration: 'none' }}>Agency Login →</Link>
           </div>
         </div>
       </div>
