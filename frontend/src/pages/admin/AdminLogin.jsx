@@ -32,8 +32,8 @@ export default function AdminLogin() {
           <div style={{ width: 64, height: 64, background: 'var(--accent)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
             <ShieldCheck size={32} color="var(--primary)"/>
           </div>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: 'white' }}>Admin Portal</h1>
-          <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: 6, fontSize: 14 }}>VistaVoyage Administration</p>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: 'white' }}>Agency Portal</h1>
+          <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: 6, fontSize: 14 }}>VistaVoyage Agency</p>
         </div>
 
         <div style={{ background: 'rgba(255,255,255,0.06)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20, padding: 36 }}>
@@ -60,7 +60,7 @@ export default function AdminLogin() {
               </button>
             </div>
             <button type="submit" disabled={loading} style={{ width: '100%', padding: '14px', background: 'var(--accent)', border: 'none', borderRadius: 10, color: 'var(--primary)', fontSize: 16, fontWeight: 600, cursor: loading ? 'wait' : 'pointer', fontFamily: 'DM Sans', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'opacity 0.2s' }}>
-              {loading ? <div className="spinner" style={{ width: 20, height: 20, borderWidth: 2, borderTopColor: 'var(--primary)' }}/> : <><ShieldCheck size={16}/> Sign In as Admin</>}
+              {loading ? <div className="spinner" style={{ width: 20, height: 20, borderWidth: 2, borderTopColor: 'var(--primary)' }}/> : <><ShieldCheck size={16}/> Sign In as Agency</>}
             </button>
           </form>
         </div>
