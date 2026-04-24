@@ -8,12 +8,21 @@ dotenv.config();
 const app = express();
 
 // ── Middleware ──────────────────────────────────────────────
-const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000', 'https://vistavoyage-frontend.onrender.com'];
+const allowedOrigins = [
+  process.env.CLIENT_URL, 
+  'http://localhost:3000', 
+  'https://vistavoyage-frontend.onrender.com',
+  'https://vistavoyage-frontend.onrender.com/'
+].filter(Boolean);
+
 app.use(cors({ 
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('onrender.com')) {
       callback(null, true);
     } else {
+      console.log('[CORS] Blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   }, 
