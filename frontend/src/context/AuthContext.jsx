@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
@@ -30,6 +30,13 @@ export const AuthProvider = ({ children }) => {
     setUser(response.data.user);
   };
 
+  // Used by Google OAuth callback
+  const loginWithToken = (token, userData) => {
+    localStorage.setItem('userToken', token);
+    localStorage.setItem('userData', JSON.stringify(userData));
+    setUser(userData);
+  };
+
   const logout = () => {
     localStorage.removeItem('userData');
     localStorage.removeItem('userToken');
@@ -37,10 +44,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, admin, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, admin, loading, login, register, logout, loginWithToken }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => useContext(AuthContext);
+

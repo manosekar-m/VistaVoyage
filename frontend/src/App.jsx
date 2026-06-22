@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 
 // User Pages
 import HomePage        from './pages/user/HomePage';
@@ -119,9 +120,11 @@ function AppContent() {
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+      <CurrencyProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </CurrencyProvider>
     </AuthProvider>
   );
 }

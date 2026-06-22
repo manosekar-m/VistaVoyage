@@ -18,6 +18,9 @@ export default function BookingPage() {
     foodType: 'Veg',
     roomType: '3 Star'
   });
+  const [promoCode, setPromoCode] = useState('');
+  const [promoDiscount, setPromoDiscount] = useState(0);
+  const [promoMsg, setPromoMsg] = useState('');
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
 
@@ -85,6 +88,23 @@ export default function BookingPage() {
     }
   };
 
+  const handleApplyPromo = async () => {
+    if (!promoCode) return;
+    try {
+      const res = await api.post('/promos/validate', { code: promoCode });
+      if (res.data.success) {
+        setPromoDiscount(res.data.discount);
+        setPromoMsg(res.data.message);
+      } else {
+        setPromoDiscount(0);
+        setPromoMsg(res.data.message || 'Invalid promo code');
+      }
+    } catch (err) {
+      setPromoDiscount(0);
+      setPromoMsg(err.response?.data?.message || 'Invalid promo code');
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (!pkg) return <div>Package not found</div>;
 
@@ -128,6 +148,31 @@ export default function BookingPage() {
           </div>
         </div>
 
+        <div style={{ marginBottom: '15px', padding: '15px', backgroundColor: '#f9f9f9', borderRadius: '5px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Promo Code (Optional):</label>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <input
+              type="text"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+              placeholder="Enter code"
+              style={{ flex: 1, padding: '10px', borderRadius: '4px', border: '1px solid #ccc', textTransform: 'uppercase' }}
+            />
+            <button 
+              type="button" 
+              onClick={handleApplyPromo}
+              style={{ padding: '10px 15px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            >
+              Apply
+            </button>
+          </div>
+          {promoMsg && (
+            <div style={{ marginTop: '10px', color: promoDiscount > 0 ? 'green' : 'red', fontSize: '14px' }}>
+              {promoMsg} {promoDiscount > 0 && `(${promoDiscount}% OFF)`}
+            </div>
+          )}
+        </div>
+
         <button 
           type="submit" 
           disabled={processing}
@@ -143,7 +188,7 @@ export default function BookingPage() {
             fontWeight: 'bold'
           }}
         >
-          {processing ? 'Processing...' : `Pay ₹${(pkg.price * formData.persons) + ((pkg.childPrice || 0) * formData.children)} & Book`}
+          {processing ? 'Processing...' : `Pay ₹${Math.round(((pkg.price * formData.persons) + ((pkg.childPrice || 0) * formData.children)) * (1 - promoDiscount / 100))} & Book`}
         </button>
       </form>
     </div>

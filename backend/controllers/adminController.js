@@ -100,3 +100,64 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
+// GET /api/admin/export/bookings  (Admin - CSV export)
+exports.exportBookingsCSV = async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate('user', 'name email')
+      .populate('package', 'title')
+      .sort({ createdAt: -1 });
+
+    const rows = bookings.map(b => [
+      b.bookingId || b._id,
+      b.user?.name || '',
+      b.user?.email || '',
+      b.package?.title || '',
+      new Date(b.travelDate).toLocaleDateString(),
+      b.persons,
+      b.children,
+      b.status,
+      b.paymentStatus,
+      b.totalAmount,
+    ]);
+
+    const csvContent = [
+      ['BookingID','User','Email','Package','Travel Date','Adults','Children','Status','Payment','Amount'],
+      ...rows,
+    ].map(row => row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="bookings.csv"');
+    res.send(csvContent);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+// GET /api/admin/export/users  (Admin - CSV export)
+exports.exportUsersCSV = async (req, res) => {
+  try {
+    const users = await User.find().select('-password').sort({ createdAt: -1 });
+
+    const rows = users.map(u => [
+      u._id,
+      u.name,
+      u.email,
+      u.phone,
+      u.isActive ? 'Active' : 'Inactive',
+      new Date(u.createdAt).toLocaleDateString(),
+    ]);
+
+    const csvContent = [
+      ['UserID','Name','Email','Phone','Status','Joined'],
+      ...rows,
+    ].map(row => row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="users.csv"');
+    res.send(csvContent);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};

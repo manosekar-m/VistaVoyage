@@ -4,10 +4,11 @@ const bcrypt   = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   name:     { type: String, required: true, trim: true },
   email:    { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String, required: true, minlength: 6 },
-  phone:    { type: String, required: true },
+  password: { type: String, minlength: 6, default: '' },
+  phone:    { type: String, default: '' },
   avatar:   { type: String, default: '' },
   isActive: { type: Boolean, default: true },
+  googleId: { type: String, default: '' },
   wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Package' }],
 }, { timestamps: true });
 
