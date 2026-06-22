@@ -30,6 +30,10 @@ const packageSchema = new mongoose.Schema({
   childPrice:    { type: Number, default: 0 },
   roomTypes:     [{ type: String, enum: ['5 Star', '4 Star', '3 Star'] }],
   activities:    [{ type: String, default: [] }],
+  coordinates:   {
+    lat: { type: Number, default: null },
+    lng: { type: Number, default: null },
+  },
   createdBy:   { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
 }, { timestamps: true });
 

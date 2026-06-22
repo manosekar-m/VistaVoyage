@@ -31,7 +31,7 @@ app.use('/api/ai',        require('./routes/aiRoutes'));
 app.use('/api/payment',   require('./routes/paymentRoutes'));
 app.use('/api/promos',    require('./routes/promoRoutes'));
 app.use('/api/queries',   require('./routes/queryRoutes'));
-
+app.use('/api/reviews',   require('./routes/reviewRoutes'));
 // ── Health Check ────────────────────────────────────────────
 app.get('/', (req, res) => res.json({ message: 'VistaVoyage API is running 🌍' }));
 
