@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:7
+    container_name: vistavoyage-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: vistavoyage-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/vistavoyage
+      - JWT_SECRET=vistavoyage_secret
+      - JWT_EXPIRE=7d
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  frontend:
+    build: ./frontend
+    container_name: vistavoyage-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
